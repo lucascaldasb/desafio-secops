@@ -1,0 +1,30 @@
+name: CI DevSecOps
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install deps
+        run: poetry install
+
+      - name: Run Bandit
+        run: poetry run bandit -r .
+
+      - name: Run Ruff
+        run: poetry run ruff check .
+
+      - name: Run Safety
+        run: poetry run safety check
