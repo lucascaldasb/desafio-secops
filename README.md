@@ -1,122 +1,89 @@
-# Desafio SecOps
+# Relatório de Prontidão Técnica: Onboarding SecOps
 
-Este projeto foi desenvolvido como parte de um desafio prático com foco em **boas práticas de segurança, qualidade de código e automação de CI/CD** em uma aplicação Django.
+**Disciplina:** Engenharia de Produto de Software (FGA0316) - 2026.1  
+**Aluno:** [Lucas Caldas Barbosa de Souza] | **Matrícula:** [19/0091606]
 
-A proposta principal foi aplicar ferramentas de análise estática, correções de segurança e garantir que a aplicação pudesse ser validada automaticamente em pipeline.
+## 1. Configuração do Ambiente (Zero Trust & Isolamento)
+
+Conforme as diretrizes de Soberania Técnica, as seguintes configurações foram aplicadas:
+
+- [x] **Python 3.12:** Instalado e verificado.
+- [x] **Poetry:** Configurado para criar `.venv` dentro do projeto (`virtualenvs.in-project true`).
+- [x] **Determinismo:** Arquivos `pyproject.toml` e `poetry.lock` gerados com sucesso.
+
+## 2. Logs de Auditoria e Qualidade (Security Gate)
+
+Abaixo constam os resumos das execuções dos comandos de segurança:
+
+### 2.1. Auditoria Estática (Bandit)
+
+![Resultado do Bandit — nenhuma vulnerabilidade reportada](images/print-bandit.png)
+
+*Comando: `poetry run bandit -r .`*
+
+### 2.2. Verificação de Dependências (Safety)
+
+![Resultado do Safety — verificação de dependências](images/print-safety.png)
+
+*Comando: `poetry run safety check`*
+
+### 2.3. Qualidade e Conformidade (Ruff)
+
+![Resultado do Ruff — linter e conformidade](images/print-ruff.png)
+
+*Comando: `poetry run ruff check .`*
+
+## 3. Evidência de Integração Contínua (CI)
+
+O pipeline automatizado foi executado com sucesso no GitHub Actions:
+
+- **Link da Action de Sucesso:** [https://github.com/lucascaldasb/desafio-secops/actions/runs/23827305514]
+
+![GitHub Actions — pipeline de CI](images/print-ci.png)
+
+## 4. Declaração de Soberania Técnica (CISSP Domain 8)
+
+Eu, Lucas Caldas Barbosa de Souza, declaro que auditei manualmente as ferramentas e dependências deste projeto. Confirmo que o código gerado via IA (GitHub Copilot) passou pela minha revisão humana (*Human-in-the-loop*), garantindo que não há vazamento de segredos ou falhas lógicas críticas antes da migração para o ecossistema da PCDF.
+
+## 5. Evidências de execução local
+
+Capturas de ambiente local (navegador e terminal):
+
+![Aplicação Django em execução local](images/print-local.png)
+
+![Terminal — `runserver` e comandos locais](images/print-local-terminal.png)
 
 ---
 
-# Objetivos do desafio
+**Data de Entrega:** [02/04/2026]
 
-Durante a execução do desafio foram aplicados os seguintes pontos:
 
-* Configuração do ambiente Python com Poetry
-* Execução local da aplicação Django
-* Correção de problemas apontados por linters
-* Análise de segurança com Bandit
-* Criação de pipeline CI com GitHub Actions
-* Versionamento com Git/GitHub
+## Apêndice: Repositório e execução local
 
----
+Projeto Django com foco em segurança, qualidade e CI/CD (Poetry, Ruff, Bandit, GitHub Actions).
 
-# Tecnologias utilizadas
-
-* Python
-* Django
-* Poetry
-* Ruff
-* Bandit
-* GitHub Actions
-
----
-
-# Como executar o projeto
-
-## 1. Clonar o repositório
+### Clonar e instalar
 
 ```bash
 git clone https://github.com/lucascaldasb/desafio-secops.git
 cd desafio-secops
-```
-
-## 2. Instalar dependências
-
-```bash
 poetry install
 ```
 
-## 3. Ativar ambiente virtual
+### Servidor local
 
 ```bash
 poetry shell
-```
-
-## 4. Rodar servidor local
-
-```bash
 poetry run python manage.py runserver
 ```
 
-ou com Docker
+Ou com Docker:
 
 ```bash
 docker-compose up --build
 ```
 
----
+### Comandos úteis (referência)
 
-# Qualidade e segurança do código
-
-## Ruff (lint)
-
-```bash
-poetry run ruff check .
-```
-
-## Bandit (análise de segurança)
-
-```bash
-poetry run bandit -r core manage.py
-```
-
----
-
-# Evidências da execução
-
-## Aplicação rodando localmente com Docker
-
-![Aplicação rodando](./images/print-local.png)
-
-
-![Aplicação rodando 2](./images/print-local-terminal.png)
-
-## Bandit executado com análise de segurança
-
-![Bandit](./images/print-bandit.png)
-
-## Pipeline CI executando no GitHub Actions
-
-![CI](./images/print-ci.png)
-
----
-
-# Melhorias aplicadas
-
-Durante o desafio foram feitas correções como:
-
-* Remoção de SECRET_KEY hardcoded
-* Uso de variáveis de ambiente
-* Ajuste de imports no settings.py
-* Correção de lint apontado pelo Ruff
-
----
-
-# Observações
-
-O projeto foi executado em ambiente Linux utilizando máquina virtual Ubuntu via VirtualBox.
-
----
-
-# Autor
-
-Lucas Caldas
+- Ruff: `poetry run ruff check .`
+- Bandit: `poetry run bandit -r .`
